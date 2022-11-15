@@ -11,19 +11,20 @@ export class ProductComponent implements OnInit {
 
   @Input() product: ProductItem;
   count: number = 1;
-  /*date: Date = new Date();*/
   url: string = "https://venturebeat.com/product-comparisons?wp-content=uploads/2021/01/color.jpg"
 
 
   expressDelivery: boolean = false;
-  
+  unit: string = ''
   deliveryDate: string;
 
   constructor() {
   }
 
   ngOnInit(): void {
+    console.log(this.product)
     this.deliveryDate = this.estimateDeliveryTime()
+    this.unit = this.product.unit != '-' ? this.product.unit : ''
   }
 
   changeProductCount(increment: number) {
@@ -41,14 +42,10 @@ export class ProductComponent implements OnInit {
     let workingDays = 0
     for (let it = 0; it < this.product.deliveryTimeList.length; it++) {
       if (this.count <= this.product.deliveryTimeList[it].toDays) {
-        console.log(this.count, this.product.deliveryTimeList[it].toDays, this.product.deliveryTimeList[it].days);
         workingDays = this.product.deliveryTimeList[it].days
         break;
       }
     }
-
-    console.log("working days delivery", workingDays)
-    console.log("express delivery: ", this.expressDelivery)
     return this.calculateDelivery(workingDays)
 
   }
