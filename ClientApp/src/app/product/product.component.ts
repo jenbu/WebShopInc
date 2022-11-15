@@ -37,15 +37,30 @@ export class ProductComponent implements OnInit {
     this.deliveryDate = this.estimateDeliveryTime();
   }
 
+  // Limitation: ProductDeliveryTime items related to Product must be in an increasing order.
   estimateDeliveryTime() {
-
     let workingDays = 0
+    let maxAmount = 0;
+    let maxDeliveryDays = 0;
     for (let it = 0; it < this.product.deliveryTimeList.length; it++) {
+      
       if (this.count <= this.product.deliveryTimeList[it].toDays) {
         workingDays = this.product.deliveryTimeList[it].days
         break;
       }
+
+      if (maxAmount < this.product.deliveryTimeList[it].toDays) {
+        maxAmount = this.product.deliveryTimeList[it].toDays
+        maxDeliveryDays = this.product.deliveryTimeList[it].days
+      }
+
     }
+
+    // Work-around
+    if (this.count >= maxAmount) {
+      workingDays = maxDeliveryDays
+    }
+
     return this.calculateDelivery(workingDays)
 
   }
