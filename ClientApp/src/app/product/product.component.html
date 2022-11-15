@@ -1,0 +1,54 @@
+
+
+<mat-card style="width: 400px;" *ngIf="product">
+        <img mat-card-image  [src]="product.imgURL" width="100px">
+
+        <mat-card-content>
+          <div style="margin: 0 0 30px 0">
+            <h3>
+              {{ product.name }}
+            </h3>
+
+            <h6>
+              Description
+            </h6>
+
+            {{ product.description }}
+
+          </div>
+
+
+            <div style="align-items: center;">
+                <div style="display: flex; flex-direction: row; justify-content: space-between;">
+                  <div style="font-size: 12px; margin: 5px 0">
+                    Estimated delivery: {{deliveryDate}}
+                  </div>
+                    
+                    <div style=" display: flex; flex-direction: column; align-items: center;">
+                        <div style="font-size: 12px">
+                            Express delivery
+                        </div>
+                        <mat-slide-toggle color="primary" (change)="setExpressDelivery($event)"></mat-slide-toggle>
+                    </div>
+                </div>
+
+            </div>
+            <div style="display: flex; flex-direction: row; justify-content: space-between;">
+                <button mat-raised-button disabled="true"> Buy </button>
+                <div style="display: flex; flex-direction: row; justify-content: center;"> 
+                    <button mat-mini-fab class="fab" color="primary" (click)="changeProductCount(-1)" [disabled]="count <= 1">
+                        <mat-icon> remove </mat-icon>
+                    </button>
+
+                    <div style="line-height: 40px; margin: 0 5px;">
+                        {{ count }} {{ product.unit }}
+                    </div>
+
+                    <button mat-mini-fab class="fab" color="primary" (click)="changeProductCount(1)">
+                        <mat-icon> add </mat-icon>
+                    </button>
+                </div>
+        
+            </div>
+        </mat-card-content>
+</mat-card>
