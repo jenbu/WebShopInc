@@ -17,14 +17,21 @@ export class ProductComponent implements OnInit {
   expressDelivery: boolean = false;
   unit: string = ''
   deliveryDate: string;
+  maxQuantity: number = 0;
 
   constructor() {
   }
 
   ngOnInit(): void {
-    console.log(this.product)
     this.deliveryDate = this.estimateDeliveryTime()
     this.unit = this.product.unit != '-' ? this.product.unit : ''
+
+    // Get the highest defined quantity in ProductDeliveryTime
+    for (let it = 0; it < this.product.deliveryTimeList.length; it++) {
+      if (this.maxQuantity < this.product.deliveryTimeList[it].toDays) {
+        this.maxQuantity = this.product.deliveryTimeList[it].toDays
+      }
+    }
   }
 
   changeProductCount(increment: number) {
@@ -40,38 +47,29 @@ export class ProductComponent implements OnInit {
   // Limitation: ProductDeliveryTime items related to Product must be in an increasing order.
   estimateDeliveryTime() {
     let workingDays = 0
-    let maxAmount = 0;
     let maxDeliveryDays = 0;
+
     for (let it = 0; it < this.product.deliveryTimeList.length; it++) {
-      
       if (this.count <= this.product.deliveryTimeList[it].toDays) {
         workingDays = this.product.deliveryTimeList[it].days
         break;
       }
-
-      if (maxAmount < this.product.deliveryTimeList[it].toDays) {
-        maxAmount = this.product.deliveryTimeList[it].toDays
-        maxDeliveryDays = this.product.deliveryTimeList[it].days
-      }
-
     }
 
     // Work-around
-    if (this.count >= maxAmount) {
+    if (this.count > this.maxQuantity) {
       workingDays = maxDeliveryDays
     }
 
     return this.calculateDelivery(workingDays)
-
   }
 
   // Calculate the forward date based on given working days. Does not take into account holidays.
   // Saturday and sunday is not counted as working day.
   // I assume that the current day is not part of delivery period. 
   calculateDelivery(working_days: number) {
-    let date = new Date()
+    let date = new Date("2022-11-01")
     let counter = this.expressDelivery ? working_days - 1 : working_days
-    console.log("working days: ", counter)
 
     // minimum of 1 day delivery
     if (counter < 1) {
@@ -84,7 +82,7 @@ export class ProductComponent implements OnInit {
 
       const dayOfWeek = date.getDay();
 
-      if (dayOfWeek != 5 && dayOfWeek != 6) {
+      if (dayOfWeek != 6 && dayOfWeek != 0) {
         counter -= 1;
       }
     }
