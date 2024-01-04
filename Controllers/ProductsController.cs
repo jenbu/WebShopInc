@@ -13,7 +13,7 @@ namespace WebShopInc.Controllers
 
         public ProductsController()
         {
-            connectionString = @"Data Source=(localdb)\MSSQLLocalDB;Initial Catalog=Test;Integrated Security=True;Connect Timeout=30;Encrypt=False;TrustServerCertificate=False;ApplicationIntent=ReadWrite;MultiSubnetFailover=False";
+            connectionString = @"Data Source=localhost,1433;Connect Timeout=30;Database=WebShopIncDB;Encrypt=False;TrustServerCertificate=False;User=sa;Password=pasSord123";
         }
         [HttpGet]
         public List<ProductItem> Get()

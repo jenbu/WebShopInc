@@ -1,0 +1,6 @@
+DROP DATABASE IF EXISTS [WebShopIncDB];
+
+PRINT N'Calling create database.';  
+GO  
+CREATE DATABASE [WebShopIncDB];
+ALTER DATABASE [WebShopIncDB] SET RECOVERY SIMPLE;

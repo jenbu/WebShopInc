@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { ProductItem } from '../ProductItem';
 
 
@@ -88,9 +88,6 @@ export class ProductComponent implements OnInit {
     }
     return date.getDate() + "." + (date.getMonth() + 1);
   }
-
-
-
 }
 
 
