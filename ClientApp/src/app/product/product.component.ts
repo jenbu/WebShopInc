@@ -27,9 +27,9 @@ export class ProductComponent implements OnInit {
     this.unit = this.product.unit != '-' ? this.product.unit : ''
 
     // Get the highest defined quantity in ProductDeliveryTime
-    for (let it = 0; it < this.product.deliveryTimeList.length; it++) {
-      if (this.maxQuantity < this.product.deliveryTimeList[it].toDays) {
-        this.maxQuantity = this.product.deliveryTimeList[it].toDays
+    for (let it = 0; it < this.product.productDeliveryTimes.length; it++) {
+      if (this.maxQuantity < this.product.productDeliveryTimes[it].toDays) {
+        this.maxQuantity = this.product.productDeliveryTimes[it].toDays
       }
     }
   }
@@ -49,9 +49,9 @@ export class ProductComponent implements OnInit {
     let workingDays = 0
     let maxDeliveryDays = 0;
 
-    for (let it = 0; it < this.product.deliveryTimeList.length; it++) {
-      if (this.count <= this.product.deliveryTimeList[it].toDays) {
-        workingDays = this.product.deliveryTimeList[it].days
+    for (let it = 0; it < this.product.productDeliveryTimes.length; it++) {
+      if (this.count <= this.product.productDeliveryTimes[it].toDays) {
+        workingDays = this.product.productDeliveryTimes[it].days
         break;
       }
     }

@@ -1,11 +1,18 @@
-using WebShopInc.Models;
 using Microsoft.EntityFrameworkCore;
+using EFDataAccessLibrary.DataAccess;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 
 builder.Services.AddControllers();
+//builder.Services.AddDbContext<ProductContext>(options =>
+//{
+//    options.UseSqlServer( "name=ConnectionStrings:DefaultConnection");
+//});
+builder.Services.AddDbContext<ProductContext>();
+
+
 
 var app = builder.Build();
 

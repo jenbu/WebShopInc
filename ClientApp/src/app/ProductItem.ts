@@ -3,9 +3,9 @@ export interface ProductItem {
   id: number,
   name: string,
   description: string,
-  imgURL: string,
+  imageUrl: string,
   unit: string,
-  deliveryTimeList: ProductDeliveryTime[]
+  productDeliveryTimes: ProductDeliveryTime[]
 }
 
 export interface ProductDeliveryTime {

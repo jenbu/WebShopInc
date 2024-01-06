@@ -1,7 +1,7 @@
-﻿using Microsoft.AspNetCore.Mvc;
-using Microsoft.Data.SqlClient;
-using System.Data;
-using WebShopInc.Models;
+﻿using EFDataAccessLibrary.DataAccess;
+using EFDataAccessLibrary.Models;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 namespace WebShopInc.Controllers
 {
@@ -9,75 +9,36 @@ namespace WebShopInc.Controllers
     [Route("[controller]")]
     public class ProductsController : ControllerBase
     {
-        private string connectionString;
+        public ProductsController() { }
 
-        public ProductsController()
-        {
-            connectionString = @"Data Source=localhost,1433;Connect Timeout=30;Database=WebShopIncDB;Encrypt=False;TrustServerCertificate=False;User=sa;Password=pasSord123";
-        }
         [HttpGet]
-        public List<ProductItem> Get()
+        public List<Product> Get()
         {
-            List<ProductItem> productList = new List<ProductItem>();
-            string queryProducts = "SELECT * FROM Products";
-            string queryDeliveryTimes = "SELECT ProductDeliveryTimes.fromDay, ProductDeliveryTimes.toDay, ProductDeliveryTimes.days, ProductDeliveryTimes.ProductId FROM ProductDeliveryTimes INNER JOIN Products ON ProductDeliveryTimes.ProductId = Products.Id";
+            using var context = new ProductContext();
 
-            using (SqlConnection connection = new SqlConnection(connectionString))
-            {
-                // create the command and the parameter objects
-                SqlCommand command = new SqlCommand(queryProducts, connection);
+            List<Product> productList = context.Product
+                .Include(p => p.ProductDeliveryTimes)
+                .ToList();
 
-                ProductItem product = new ProductItem();
-
-                try
-                {
-                    connection.Open();
-
-                    using (SqlDataReader reader = command.ExecuteReader())
-                    {
-                        while (reader.Read())
-                        {
-                            productList.Add(new ProductItem
-                            {
-                                Id = reader.GetInt32("id"),
-                                Name = reader.GetString("name"),
-                                Description = reader.GetString("description"),
-                                ImgURL = reader.GetString("img_url"),
-                                Unit = reader.GetString("unit"),
-                                deliveryTimeList = new List<ProductDeliveryTime>()
-                            });
-                        }
-                    }
-
-                    // Adds related entries in ProductDeliveryTimes table
-                    command.CommandText= queryDeliveryTimes;
-                    using (SqlDataReader reader = command.ExecuteReader())
-                    {
-                        while (reader.Read())
-                        {
-                            for(int it = 0; it < productList.Count; it++)
-                            {
-                                if (productList[it].Id == reader.GetInt32("ProductId"))
-                                {
-                                    productList[it].deliveryTimeList.Add(new ProductDeliveryTime
-                                    {
-                                        fromDays = reader.GetInt32("fromDay"),
-                                        toDays = reader.GetInt32("toDay"),
-                                        days = reader.GetInt32("Days")
-                                    });
-                                }
-                            }
-                        }
-                    }
-
-                }
-                catch (Exception ex)
-                {
-                    Console.WriteLine(ex);
-                    return productList;
-                }
-            }
             return productList;
+        }
+
+        [HttpPost]
+        public void Add()
+        {
+            Product product = new Product{
+                //Id = 666,
+                Name = "Some Name",
+                Description = "Some description",
+                ImageUrl = null,
+                Unit = "unit"
+            };
+        
+            using var context = new ProductContext();
+
+            context.Product.Add(product);
+
+            context.SaveChanges();
         }
     }
 
