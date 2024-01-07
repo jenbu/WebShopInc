@@ -10,8 +10,7 @@
     "build": "ng build",
     "build:ssr": "ng run WebShopInc:server:dev",
     "watch": "ng build --watch --configuration development",
-    "test": "ng test",
-    "lint": "ng lint"
+    "test": "ng test"
   },
   "private": true,
   "dependencies": {
@@ -20,7 +19,7 @@
     "@angular/compiler": "^16.2.12",
     "@angular/core": "^16.2.12",
     "@angular/forms": "^16.2.12",
-    "@angular/material": "^14.2.7",
+    "@angular/material": "^16.2.12",
     "@angular/platform-browser": "^16.2.12",
     "@angular/platform-browser-dynamic": "^16.2.12",
     "@angular/platform-server": "^16.2.12",
@@ -36,19 +35,11 @@
   },
   "devDependencies": {
     "@angular-devkit/build-angular": "^16.2.11",
-    "@angular-eslint/builder": "14.4.0",
-    "@angular-eslint/eslint-plugin": "14.4.0",
-    "@angular-eslint/eslint-plugin-template": "14.4.0",
-    "@angular-eslint/schematics": "14.4.0",
-    "@angular-eslint/template-parser": "14.4.0",
     "@angular/cli": "^16.2.11",
     "@angular/compiler-cli": "^16.2.12",
     "@types/jasmine": "~4.3.0",
     "@types/jasminewd2": "~2.0.10",
     "@types/node": "^18.7.11",
-    "@typescript-eslint/eslint-plugin": "5.43.0",
-    "@typescript-eslint/parser": "5.43.0",
-    "eslint": "^8.28.0",
     "jasmine-core": "~4.3.0",
     "karma": "~6.4.0",
     "karma-chrome-launcher": "~3.1.1",
