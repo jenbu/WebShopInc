@@ -1,32 +1,29 @@
-import { Component, OnInit, Inject } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { Component, OnInit } from '@angular/core';
 import { Observable, BehaviorSubject, switchMap, tap } from 'rxjs';
 import { ProductItem } from '../ProductItem';
+import { ProductService } from '../services/product.service';
 
 @Component({
   selector: 'app-shop',
   templateUrl: './shop.component.html',
-  styleUrls: ['./shop.component.css']
+  styleUrls: ['./shop.component.css'],
 })
 export class ShopComponent implements OnInit {
   triggerFetch: BehaviorSubject<boolean> = new BehaviorSubject(true);
   products$: Observable<ProductItem[]>;
   loading: boolean = false;
 
-  constructor(http: HttpClient, @Inject('BASE_URL') baseUrl: string) {
+  constructor(public productsService: ProductService) {
     this.products$ = this.triggerFetch.pipe(
-      switchMap((val) => {
-        console.log("calling http get", val)
+      switchMap(() => {
         this.loading = true;
-        return http.get<ProductItem[]>(baseUrl + 'products');
+        return this.productsService.get();
       }),
-      tap((vals) => { console.log(vals); this.loading = false } )
+      tap(() => {
+        this.loading = false;
+      })
     );
-
-    this.triggerFetch.next(true)
-}
-
-  ngOnInit(): void {
   }
 
+  ngOnInit(): void {}
 }
