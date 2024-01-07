@@ -72,11 +72,11 @@
           "builder": "@angular-devkit/build-angular:dev-server",
           "configurations": {
             "production": {
-              "browserTarget": "WebShopInc:build:production"
+              "buildTarget": "WebShopInc:build:production"
             },
             "development": {
-              "browserTarget": "WebShopInc:build:development",
-              "proxyConfig": "proxy.conf.js"
+              "proxyConfig": "proxy.conf.js",
+              "buildTarget": "WebShopInc:build:development"
             }
           },
           "defaultConfiguration": "development"
@@ -84,7 +84,7 @@
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "WebShopInc:build"
+            "buildTarget": "WebShopInc:build"
           }
         },
         "test": {
