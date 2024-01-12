@@ -1,11 +1,9 @@
 ﻿using System.Collections.Generic;
 
-namespace EFDataAccessLibrary.Models
+namespace EFDataAccessLibrary.DomainModels
 {
-    public class Product
+    public class ProductModel
     {
-        public int? Id { get; set; }
-
         public string Name { get; set; }
 
         public string Description { get; set; }
@@ -14,6 +12,6 @@ namespace EFDataAccessLibrary.Models
 
         public string Unit {  get; set; }
 
-        public List<ProductDeliveryTime> ProductDeliveryTimes { get; set;}
+        public List<ProductDeliveryTimeModel> ProductDeliveryTimes { get; set;}
     }
 }

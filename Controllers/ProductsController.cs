@@ -1,4 +1,6 @@
-﻿using EFDataAccessLibrary.DataAccess;
+﻿using AutoMapper;
+using EFDataAccessLibrary.DataAccess;
+using EFDataAccessLibrary.DomainModels;
 using EFDataAccessLibrary.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -9,7 +11,11 @@ namespace WebShopInc.Controllers
     [Route("[controller]")]
     public class ProductsController : ControllerBase
     {
-        public ProductsController() { }
+        private readonly IMapper _mapper;
+
+        public ProductsController(IMapper mapper) {
+            _mapper = mapper;
+        }
 
         [HttpGet]
         public List<Product> Get()
@@ -24,19 +30,13 @@ namespace WebShopInc.Controllers
         }
 
         [HttpPost]
-        public void Add()
+        public void Add([FromBody] ProductModel model)
         {
-            Product product = new Product{
-                //Id = 666,
-                Name = "Some Name",
-                Description = "Some description",
-                ImageUrl = null,
-                Unit = "unit"
-            };
-        
+            var entity = _mapper.Map<Product>(model);
+
             using var context = new ProductContext();
 
-            context.Product.Add(product);
+            context.Product.Add(entity);
 
             context.SaveChanges();
         }

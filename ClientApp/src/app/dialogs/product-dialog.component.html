@@ -1,0 +1,23 @@
+<h2 mat-dialog-title>Add product</h2>
+<mat-dialog-content>
+  <mat-form-field class="w-100">
+    <mat-label>Name</mat-label>
+    <input matInput [(ngModel)]="product.name">
+  </mat-form-field>
+
+  <mat-form-field class="w-100">
+    <mat-label>Description</mat-label>
+    <input matInput [(ngModel)]="product.description">
+  </mat-form-field>
+
+  <mat-form-field class="w-100">
+    <mat-label>Image Url</mat-label>
+    <input matInput [(ngModel)]="product.imageUrl">
+  </mat-form-field>
+
+</mat-dialog-content>
+
+<mat-dialog-actions align="end">
+  <button mat-button mat-dialog-close>Cancel</button>
+  <button mat-button color="primary" (click)="save()" cdkFocusInitial>Save</button>
+</mat-dialog-actions>

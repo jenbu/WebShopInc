@@ -5,19 +5,19 @@ import { Observable } from 'rxjs';
 @Injectable({
   providedIn: 'root',
 })
-export class BaseCrudService {
+export class BaseCrudService<Type> {
   constructor(
     public httpClient: HttpClient,
     @Inject('BASE_URL') public baseUrl: string
-  ) {
-    console.log(baseUrl);
+  ) {}
+
+  get(id?: number): Observable<Type[]> {
+    return this.httpClient.get<Type[]>(this.baseUrl);
   }
 
-  get(id?: number): Observable<any> {
-    return this.httpClient.get<any[]>(this.baseUrl);
+  post(model: Type): Observable<Type> {
+    return this.httpClient.post<Type>(this.baseUrl, model);
   }
-
-  // post()
 
   // put()
 

@@ -1,9 +1,10 @@
 import { Injectable } from '@angular/core';
 import { BaseCrudService } from './base-crud.service';
 import { HttpClient } from '@angular/common/http';
+import { ProductItem } from '../ProductItem';
 
 @Injectable({ providedIn: 'root' })
-export class ProductService extends BaseCrudService {
+export class ProductService extends BaseCrudService<ProductItem> {
   constructor(httpClient: HttpClient) {
     super(httpClient, 'products');
   }
