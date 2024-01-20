@@ -5,7 +5,7 @@ VisualStudioVersion = 17.4.33103.184
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WebShopInc", "WebShopInc.csproj", "{5FCD44BC-04FB-4787-ACF2-56CD97CC24DC}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EFDataAccessLibrary", "EFDataAccessLibrary\EFDataAccessLibrary.csproj", "{FD554FB7-3AD7-4DBD-9847-D47CE5AE5482}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EFDataAccessLibrary", "EFDataAccessLibrary\EFDataAccessLibrary.csproj", "{FD554FB7-3AD7-4DBD-9847-D47CE5AE5482}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

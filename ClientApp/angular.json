@@ -75,7 +75,6 @@
               "buildTarget": "WebShopInc:build:production"
             },
             "development": {
-              "proxyConfig": "proxy.conf.js",
               "buildTarget": "WebShopInc:build:development"
             }
           },

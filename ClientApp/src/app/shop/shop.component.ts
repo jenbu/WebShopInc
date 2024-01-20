@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Observable, BehaviorSubject, switchMap, tap, filter } from 'rxjs';
-import { ProductItem } from '../ProductItem';
+import { Observable, BehaviorSubject, switchMap, tap, filter, map } from 'rxjs';
 import { ProductService } from '../services/product.service';
 import { MatDialog } from '@angular/material/dialog';
 import { ProductDialog } from '../dialogs/product-dialog.component';
@@ -12,7 +11,7 @@ import { ProductDialog } from '../dialogs/product-dialog.component';
 })
 export class ShopComponent implements OnInit {
   triggerFetch: BehaviorSubject<boolean> = new BehaviorSubject(true);
-  products$: Observable<ProductItem[]>;
+  products$: Observable<any>;
   loading: boolean = false;
 
   constructor(
@@ -23,6 +22,9 @@ export class ShopComponent implements OnInit {
       switchMap(() => {
         this.loading = true;
         return this.productsService.get();
+      }),
+      map((response) => {
+        return response.data;
       }),
       tap(() => {
         this.loading = false;
@@ -42,10 +44,10 @@ export class ShopComponent implements OnInit {
       .afterClosed()
       .pipe(
         filter((product) => product),
-        switchMap((product) => this.productsService.post(product))
+        switchMap((product) => {
+          return this.productsService.post(product);
+        })
       )
-      .subscribe((product) => {
-        console.log(product);
-      });
+      .subscribe((product) => {});
   }
 }

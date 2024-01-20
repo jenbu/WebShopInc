@@ -1,20 +1,26 @@
 using Microsoft.EntityFrameworkCore;
 using EFDataAccessLibrary.DataAccess;
 
+var MyAllowSpecificOrigins = "_myAllowSpecificOrigins";
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
-
 builder.Services.AddControllers();
-//builder.Services.AddDbContext<ProductContext>(options =>
-//{
-//    options.UseSqlServer( "name=ConnectionStrings:DefaultConnection");
-//});
 builder.Services.AddDbContext<ProductContext>();
 
 builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
+builder.Services.AddExceptionHandler<GlobalExceptionHandler>();
+builder.Services.AddProblemDetails();
 
-
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy(name: MyAllowSpecificOrigins,
+                      policy =>
+                      {
+                          policy.WithOrigins("http://localhost:4200");
+                      });
+});
 
 var app = builder.Build();
 
@@ -29,7 +35,9 @@ app.UseHttpsRedirection();
 app.UseStaticFiles();
 app.UseRouting();
 
+app.UseCors(MyAllowSpecificOrigins);
 
+app.UseExceptionHandler();
 app.MapControllerRoute(
     name: "default",
     pattern: "{controller}/{action=Index}/{id?}");
