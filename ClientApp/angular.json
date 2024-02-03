@@ -31,8 +31,13 @@
             ],
             "styles": [
               "node_modules/bootstrap/dist/css/bootstrap.min.css",
-              "src/styles.css"
+              "src/styles.scss"
             ],
+            "stylePreprocessorOptions": {
+                "includePaths": [
+                "node_modules/"
+                ]
+            },
             "scripts": []
           },
           "configurations": {
@@ -97,8 +102,13 @@
               "src/assets"
             ],
             "styles": [
-              "src/styles.css"
+              "src/styles.scss"
             ],
+            "stylePreprocessorOptions": {
+                "includePaths": [
+                  "node_modules/"
+                ]
+              },
             "scripts": []
           }
         },

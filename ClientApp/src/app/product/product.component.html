@@ -1,10 +1,42 @@
 
 
 <mat-card class="w-100 h-100" *ngIf="product">
+    <div class="position-absolute end-0">
+        <!-- set line-height due to angular material icon button issue -->
+        <button mat-icon-button 
+            style="line-height: 1; z-index: 1;"
+            [matMenuTriggerFor]="menu">
+            <mat-icon>more_vert</mat-icon>
+        </button>
 
-    <img mat-card-image class="h-50 object-fit-contain" [src]="product.imageUrl" >
+        <mat-menu #menu="matMenu">
+            <button mat-menu-item (click)="editProduct()">
+              <mat-icon>edit</mat-icon>
+              <span>Edit</span>
+            </button>
+            <button mat-menu-item (click)="deleteProduct()">
+              <mat-icon class="text-danger">delete</mat-icon>
+              <span class="text-danger">Delete</span>
+            </button>
+          </mat-menu>
+    </div>
+    
+    <img mat-card-image
+        *ngIf="!loadingError" 
+        class="h-50 object-fit-contain" 
+        [src]="product.imageUrl"
+        (error)="loadingError = true"
+     >
+    <div *ngIf="loadingError"
+         class="h-50 d-flex align-items-center justify-content-center">
+         <div class="d-flex flex-column">
+            <div class="text-center"> <mat-icon>error_outline</mat-icon> </div>
+            <div> Could not load the image </div>
+         </div>
+    </div>
+
     <mat-card-content class="h-50 d-flex flex-column justify-content-between">
-        <div style="margin: 0 0 30px 0">
+        <div>
             <h3>
                 {{ product.name }}
             </h3>

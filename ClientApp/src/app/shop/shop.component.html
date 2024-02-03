@@ -10,20 +10,16 @@
     </button>
 </div>
 
-<ng-container *ngIf="products$ | async as prods">
+<ng-container *ngIf="products">
     <mat-grid-list cols="3" rowHeight="500px">
         <mat-grid-tile
-            *ngFor="let prod of prods"
+            *ngFor="let prod of products"
             [colspan]="1"
             [rowspan]="1"
             >
-            <app-product class="w-100 h-100 p-2" [product]="prod"> </app-product>
-        
+            <app-product class="w-100 h-100 p-2" 
+                [product]="prod"
+                (delete)="getProducts()"> </app-product>
         </mat-grid-tile>
     </mat-grid-list>
 </ng-container>
-
-
-
-
-

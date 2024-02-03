@@ -6,15 +6,28 @@ public class BaseController : ControllerBase
 {
     public BaseController() { }
 
-    public ActionResult<ApiResponse<T>> Format<T>(T result)
+    // TODO: remove this?
+    public ActionResult<T> FormatResult<T>(T result)
     {
 
         ApiResponse<T> response = new ApiResponse<T>
         {
             Data = result,
-            Errors = new List<string> { "abc " }
+            Errors = null
         };
 
+        return Ok(response);
+    }
+
+    // TODO: remove this?
+    public ActionResult<T> FormatError<T>(T result)
+    {
+
+        ApiResponse<T> response = new ApiResponse<T>
+        {
+            Data = result,
+            Errors = null
+        };
 
         return Ok(response);
     }

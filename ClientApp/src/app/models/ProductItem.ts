@@ -1,13 +1,14 @@
-export interface ProductItem {
-  name: string;
-  description: string;
-  imageUrl: string;
-  unit: string;
-  productDeliveryTimes: ProductDeliveryTime[];
+export interface ProductModel {
+    id?: number;
+    name: string;
+    description: string;
+    imageUrl: string;
+    unit: string;
+    productDeliveryTimes: ProductDeliveryTime[];
 }
 
 export interface ProductDeliveryTime {
-  fromDays: number;
-  toDays: number;
-  days: number;
+    fromDays: number;
+    toDays: number;
+    days: number;
 }

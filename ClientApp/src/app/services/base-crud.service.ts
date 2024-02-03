@@ -6,29 +6,37 @@ import { ApiResponse } from '../models/ApiResponse';
 import { environment } from 'src/environments/environment';
 
 @Injectable({
-  providedIn: 'root',
+    providedIn: 'root',
 })
-export class BaseCrudService<Type> {
-  baseUrl: string;
+export class BaseCrudService<T> {
+    baseUrl: string;
 
-  constructor(
-    public httpClient: HttpClient,
-    @Inject('BASE_URL') public endpointExtension: string
-  ) {
-    this.baseUrl = environment.apiUrl + '/' + endpointExtension;
-  }
+    constructor(
+        public httpClient: HttpClient,
+        @Inject('BASE_URL') public endpointExtension: string
+    ) {
+        this.baseUrl = environment.apiUrl + '/' + endpointExtension;
+    }
 
-  get(id?: number): Observable<ApiResponse<Type[]>> {
-    return this.httpClient.get<ApiResponse<Type[]>>(this.baseUrl);
-  }
+    get(id?: number): Observable<ApiResponse<T[]>> {
+        let url = this.baseUrl;
 
-  post(model: Type): Observable<Type> {
-    return this.httpClient.post<Type>(this.baseUrl, model);
-  }
+        if (id) {
+            url = url + `/${id}`;
+        }
 
-  // put()
+        return this.httpClient.get<ApiResponse<T[]>>(url);
+    }
 
-  //   delete(model: Type): Observable<void> {
-  //     return this.httpClient.delete(this.baseUrl, model);
-  //   }
+    post(model: T): Observable<ApiResponse<T>> {
+        return this.httpClient.post<ApiResponse<T>>(this.baseUrl, model);
+    }
+
+    put(model: T): Observable<ApiResponse<T>> {
+        return this.httpClient.put<ApiResponse<T>>(this.baseUrl, model);
+    }
+
+    delete(id?: number): Observable<any> {
+        return this.httpClient.delete(`${this.baseUrl}/${id}`);
+    }
 }

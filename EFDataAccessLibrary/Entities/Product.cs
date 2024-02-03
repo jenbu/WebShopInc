@@ -1,6 +1,6 @@
-﻿namespace EFDataAccessLibrary.DomainModels;
+﻿namespace EFDataAccessLibrary.Entities;
 
-public class ProductModel
+public class Product
 {
     public int? Id { get; set; }
 
@@ -12,5 +12,5 @@ public class ProductModel
 
     public string? Unit {  get; set; }
 
-    public List<ProductDeliveryTimeModel> ProductDeliveryTimes { get; set;}
+    public List<ProductDeliveryTime> ProductDeliveryTimes { get; set;}
 }

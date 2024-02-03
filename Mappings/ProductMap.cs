@@ -1,6 +1,6 @@
 ﻿using AutoMapper;
 using EFDataAccessLibrary.DomainModels;
-using EFDataAccessLibrary.Models;
+using EFDataAccessLibrary.Entities;
 
 namespace WebShopInc.Mappings;
 

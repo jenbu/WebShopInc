@@ -1,7 +1,8 @@
-﻿namespace EFDataAccessLibrary.DomainModels;
+﻿namespace EFDataAccessLibrary.Entities;
 
-public class ProductDeliveryTimeModel
+public class ProductDeliveryTime
 {
+    public int Id { get; set; }
 
     public int ProductId {  get; set; }
 

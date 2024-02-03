@@ -1,28 +1,66 @@
 import { Component, Inject } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
-import { ProductItem } from '../models/ProductItem';
+import { ProductModel } from '../models/ProductItem';
+import { ProductService } from '../services/product.service';
+import { SnackbarService } from '../services/snackbar/snackbar.service';
 
 @Component({
-  selector: 'product-dialog',
-  templateUrl: 'product-dialog.component.html',
+    selector: 'product-dialog',
+    templateUrl: 'product-dialog.component.html',
+    styleUrls: ['./product-dialog.component.scss'],
 })
 export class ProductDialog {
-  constructor(
-    public dialogRef: MatDialogRef<ProductDialog>,
-    @Inject(MAT_DIALOG_DATA) public product: ProductItem
-  ) {
-    this.product = product
-      ? product
-      : {
-          name: '',
-          description: '',
-          imageUrl: '',
-          unit: '',
-          productDeliveryTimes: [],
-        };
-  }
+    mode: 'Edit' | 'New';
+    product: ProductModel;
 
-  save(): void {
-    this.dialogRef.close(this.product);
-  }
+    constructor(
+        public dialogRef: MatDialogRef<ProductDialog>,
+        public productService: ProductService,
+        public snackbarService: SnackbarService,
+        @Inject(MAT_DIALOG_DATA) public productInput: ProductModel | undefined
+    ) {
+        this.mode = this.productInput ? 'Edit' : 'New';
+
+        this.product = this.productInput
+            ? Object.assign({}, this.productInput)
+            : {
+                  name: '',
+                  description: '',
+                  imageUrl: '',
+                  unit: '',
+                  productDeliveryTimes: [],
+              };
+    }
+
+    save(): void {
+        if (this.mode == 'New') {
+            this.addProduct(this.product);
+        } else {
+            this.editProduct(this.product);
+        }
+    }
+
+    addProduct(product: ProductModel): void {
+        this.productService.post(product).subscribe({
+            next: (_successResponse) => {
+                this.snackbarService.success('Product has been created');
+                this.dialogRef.close(this.product);
+            },
+            error: (errorResponse) => {
+                this.snackbarService.error(errorResponse.error);
+            },
+        });
+    }
+
+    editProduct(product: ProductModel): void {
+        this.productService.put(product).subscribe({
+            next: (_successResponse) => {
+                this.snackbarService.success('Product has been updated');
+                this.dialogRef.close(this.product);
+            },
+            error: (errorResponse) => {
+                this.snackbarService.error(errorResponse.error);
+            },
+        });
+    }
 }

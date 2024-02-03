@@ -1,9 +1,11 @@
-﻿namespace WebShopInc.ApiWrappings;
+﻿using Microsoft.AspNetCore.Mvc;
 
+namespace WebShopInc.ApiWrappings;
+
+// https://datatracker.ietf.org/doc/html/rfc7807
 public class ApiResponse<T>
 {
+    public T? Data { get; set; }
 
-    public T Data { get; set; }
-
-    public IEnumerable<string> Errors { get; set; }
+    public ProblemDetails? Errors { get; set; }
 }
