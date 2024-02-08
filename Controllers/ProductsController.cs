@@ -15,17 +15,19 @@ public class ProductsController : BaseController
 {
     private readonly IMapper _mapper;
     private ProductValidator _productValidator = new ProductValidator();
+    private readonly IRepository<Product> _productsRepository;
 
-    public ProductsController(IMapper mapper) {
+
+    public ProductsController(IMapper mapper,
+        IRepository<Product> repository) {
         _mapper = mapper;
+        _productsRepository = repository;
     }
 
     [HttpGet]
     public async Task<ActionResult<IEnumerable<ProductModel>>> Get()
     {
-        using var context = new ProductContext();
-
-        var productEntities = await context.Product
+        var productEntities = await _productsRepository.NoTracking
             .Include(p => p.ProductDeliveryTimes)
             .ToListAsync();
 
@@ -35,13 +37,11 @@ public class ProductsController : BaseController
     [HttpGet("{id}")]
     public async Task<ActionResult<ProductModel>> Get(int id)
     {
-        using var context = new ProductContext();
-
-        var productEntity = await context.Product
+        var productEntity = await _productsRepository.NoTracking
             .Include(p => p.ProductDeliveryTimes)
             .FirstOrDefaultAsync(product => product.Id == id);
 
-        if(productEntity == null)
+        if (productEntity == null)
         {
             return NotFound();
         }
@@ -61,16 +61,9 @@ public class ProductsController : BaseController
 
         var entity = _mapper.Map<Product>(model);
 
-        using var context = new ProductContext();
+        await _productsRepository.InsertAsync(entity);
 
-        await context.Product.AddAsync(entity);
-
-        await context.SaveChangesAsync();
-
-        var result = await context.Product
-                            .FirstOrDefaultAsync();
-
-        return FormatResult(_mapper.Map<ProductModel>(result));
+        return FormatResult(_mapper.Map<ProductModel>(entity));
     }
 
     [HttpPut]
@@ -85,34 +78,24 @@ public class ProductsController : BaseController
 
         var entity = _mapper.Map<Product>(model);
 
-        using var context = new ProductContext();
+        await _productsRepository.UpdateAsync(entity);
 
-        context.Product.Update(entity);
-
-        await context.SaveChangesAsync();
-
-        var result = await context.Product
-                            .FirstOrDefaultAsync();
-
-        return FormatResult(_mapper.Map<ProductModel>(result));
+        return FormatResult(_mapper.Map<ProductModel>(entity));
     }
 
     [HttpDelete("{id}")]
     public async Task<ActionResult<int>> Delete(int id)
     {
-        using var context = new ProductContext();
-
-        var productEntity = await context.Product
+        var productEntity = await _productsRepository.NoTracking
             .FirstOrDefaultAsync(product => product.Id == id);
 
         if(productEntity == null)
         {
             return NotFound("Product not found");
-        }
-        context.Product.Remove(productEntity);
+        } 
 
-        await context.SaveChangesAsync();
-
-        return FormatResult(id);
+        await _productsRepository.DeleteAsync(productEntity);
+                
+        return Ok();
     }
 }

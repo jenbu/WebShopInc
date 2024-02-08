@@ -1,6 +1,6 @@
 ﻿namespace EFDataAccessLibrary.DomainModels;
 
-public class ProductDeliveryTimeModel
+public class ProductDeliveryTimeModel : BaseModel
 {
 
     public int ProductId {  get; set; }

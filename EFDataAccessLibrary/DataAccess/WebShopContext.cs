@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace EFDataAccessLibrary.DataAccess;
 
-public class ProductContext : DbContext
+public class WebShopContext : DbContext
 {
     //public ProductContext(DbContextOptions options): base(options) // calls the parent constructor
     //{ }

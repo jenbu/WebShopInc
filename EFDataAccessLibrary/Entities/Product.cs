@@ -1,9 +1,9 @@
-﻿namespace EFDataAccessLibrary.Entities;
+﻿using EFDataAccessLibrary.DomainModels;
 
-public class Product
+namespace EFDataAccessLibrary.Entities;
+
+public class Product : BaseModel
 {
-    public int? Id { get; set; }
-
     public string Name { get; set; } = string.Empty;
 
     public string Description { get; set; } = string.Empty;
@@ -12,5 +12,5 @@ public class Product
 
     public string? Unit {  get; set; }
 
-    public List<ProductDeliveryTime> ProductDeliveryTimes { get; set;}
+    public List<ProductDeliveryTime> ProductDeliveryTimes { get; set; } = new List<ProductDeliveryTime>();
 }
