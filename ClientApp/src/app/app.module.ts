@@ -23,37 +23,39 @@ import { ShopComponent } from './shop/shop.component';
 import { ProductComponent } from './product/product.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { ProductDialog } from './dialogs/product-dialog.component';
+import { ImageComponent } from './image/image.component';
 
 @NgModule({
-  declarations: [
-    AppComponent,
-    NavMenuComponent,
-    ShopComponent,
-    ProductComponent,
-    ProductDialog,
-  ],
-  imports: [
-    BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),
-    HttpClientModule,
-    FormsModule,
-    MatIconModule,
-    MatDialogModule,
-    MatButtonModule,
-    BrowserAnimationsModule,
-    MatCardModule,
-    MatSlideToggleModule,
-    MatGridListModule,
-    MatProgressSpinnerModule,
-    MatInputModule,
-    MatSnackBarModule,
-    MatMenuModule,
+    declarations: [
+        AppComponent,
+        NavMenuComponent,
+        ShopComponent,
+        ProductComponent,
+        ProductDialog,
+        ImageComponent,
+    ],
+    imports: [
+        BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),
+        HttpClientModule,
+        FormsModule,
+        MatIconModule,
+        MatDialogModule,
+        MatButtonModule,
+        BrowserAnimationsModule,
+        MatCardModule,
+        MatSlideToggleModule,
+        MatGridListModule,
+        MatProgressSpinnerModule,
+        MatInputModule,
+        MatSnackBarModule,
+        MatMenuModule,
 
-    RouterModule.forRoot([
-      { path: '', component: ShopComponent, pathMatch: 'full' },
-    ]),
-    NgbModule,
-  ],
-  providers: [],
-  bootstrap: [AppComponent],
+        RouterModule.forRoot([
+            { path: '', component: ShopComponent, pathMatch: 'full' },
+        ]),
+        NgbModule,
+    ],
+    providers: [],
+    bootstrap: [AppComponent],
 })
 export class AppModule {}

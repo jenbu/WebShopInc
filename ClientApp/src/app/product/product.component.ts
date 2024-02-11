@@ -17,7 +17,6 @@ export class ProductComponent implements OnInit {
     count: number = 1;
 
     expressDelivery: boolean = false;
-    loadingError = false;
     unit: string = '';
     deliveryDate: string;
     maxQuantity: number = 0;

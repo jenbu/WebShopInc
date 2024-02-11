@@ -20,19 +20,10 @@
             </button>
           </mat-menu>
     </div>
-    
-    <img mat-card-image
-        *ngIf="!loadingError" 
-        class="h-50 object-fit-contain" 
-        [src]="product.imageUrl"
-        (error)="loadingError = true"
-     >
-    <div *ngIf="loadingError"
-         class="h-50 d-flex align-items-center justify-content-center">
-         <div class="d-flex flex-column">
-            <div class="text-center"> <mat-icon>error_outline</mat-icon> </div>
-            <div> Could not load the image </div>
-         </div>
+
+    <div mat-card-image
+         class="h-50 px-4 mb-2">
+        <app-image [src]="product.imageUrl"></app-image>
     </div>
 
     <mat-card-content class="h-50 d-flex flex-column justify-content-between">
