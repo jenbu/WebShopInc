@@ -3,26 +3,29 @@
 A small fullstack project. 
 
 
-![bilde](https://user-images.githubusercontent.com/13052214/202025826-bfdf176a-6b75-4fa0-a749-a7f50908fcf0.png)
+![bilde](https://github.com/jenbu/WebShopInc/assets/13052214/36bf5fdf-8693-4153-b66f-0752bd990154)
 
 ## Setup
 
 
 ### Database setup
-Open the project in Visual Studio and create a new LocalDB database named Test.
+You need Docker to run the database. I use Docker Desktop on Windows.
+In a terminal, enter the WebShopInc folder and start the database:
+```
+docker-compose up
+```
 
-![bilde](https://user-images.githubusercontent.com/13052214/202029264-e675888a-288c-4fe1-a98b-f8dffabb739d.png)
+### UI Setup
 
-Open database_setup.sql in Visual Studio and run it on the database Test. 
-
-![bilde](https://user-images.githubusercontent.com/13052214/202030383-4994239d-a578-4015-94f8-df29f93e1e43.png)
-
-Make sure there are no error messages is the status display below. 
-
-### Web Client Setup
-
-You may need to enter ClientApp folder and install some dependencies, run the following inside ClientApp/:
+Enter the ClientApp folder in a terminal and install the dependencies:
 ```
 npm install
 ```
+Start the development server by running:
+```
+ng serve
+```
+
+You can view the web page by going to the following address in an internet browse:
+http://localhost:4200
 
