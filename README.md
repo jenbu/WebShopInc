@@ -26,6 +26,8 @@ Start the development server by running:
 ng serve
 ```
 
-You can view the web page by going to the following address in an internet browse:
+You can view the web page by going to the following address in an internet browser:
 http://localhost:4200
 
+### Back-end
+Open the WebShopInc solution file and run it, I use Visual Studio for this.
