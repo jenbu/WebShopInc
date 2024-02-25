@@ -1,7 +1,6 @@
 # WebShopInc
 
-A small fullstack project. 
-
+A small fullstack project using SQL Server as database, .Net Core for back-end and Angular for front-end.
 
 ![bilde](https://github.com/jenbu/WebShopInc/assets/13052214/36bf5fdf-8693-4153-b66f-0752bd990154)
 
