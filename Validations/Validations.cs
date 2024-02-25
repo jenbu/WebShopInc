@@ -11,5 +11,6 @@ public class ProductValidator : AbstractValidator<ProductModel>
         RuleFor(product => product.Name).NotEmpty().MaximumLength(50);
         RuleFor(product => product.Description).NotEmpty().MaximumLength(200);
         RuleFor(product => product.Unit).MaximumLength(10);
+        RuleFor(product => product.ImageUrl).MaximumLength(500);
     }
 }
